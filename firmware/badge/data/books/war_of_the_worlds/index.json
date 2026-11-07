@@ -1,0 +1,21 @@
+{
+  "title": "The War of the Worlds",
+  "author": "H. G. Wells",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "I",
+      "file": "ch01.json",
+      "total_pages": 13,
+      "total_words": 2218
+    },
+    {
+      "id": 2,
+      "title": "II",
+      "file": "ch02.json",
+      "total_pages": 9,
+      "total_words": 1335
+    }
+  ]
+}

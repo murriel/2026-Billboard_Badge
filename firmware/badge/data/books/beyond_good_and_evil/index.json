@@ -1,0 +1,21 @@
+{
+  "title": "Beyond Good and Evil",
+  "author": "Friedrich Nietzsche",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "I",
+      "file": "ch01.json",
+      "total_pages": 41,
+      "total_words": 7376
+    },
+    {
+      "id": 2,
+      "title": "II",
+      "file": "ch02.json",
+      "total_pages": 39,
+      "total_words": 6625
+    }
+  ]
+}

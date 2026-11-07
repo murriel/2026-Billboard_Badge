@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "agatha_christie",
+    "title": "The Mysterious Affair at Styles",
+    "author": "Agatha Christie",
+    "total_chapters": 2,
+    "chapters": [
+      "I",
+      "II"
+    ]
+  },
+  {
+    "slug": "beyond_good_and_evil",
+    "title": "Beyond Good and Evil",
+    "author": "Friedrich Nietzsche",
+    "total_chapters": 2,
+    "chapters": [
+      "I",
+      "II"
+    ]
+  },
+  {
+    "slug": "dorian_gray",
+    "title": "The Picture of Dorian Gray",
+    "author": "Oscar Wilde",
+    "total_chapters": 2,
+    "chapters": [
+      "I",
+      "II"
+    ]
+  },
+  {
+    "slug": "dracula",
+    "title": "Dracula",
+    "author": "Bram Stoker",
+    "total_chapters": 2,
+    "chapters": [
+      "I",
+      "II"
+    ]
+  },
+  {
+    "slug": "jane_eyre",
+    "title": "Jane Eyre",
+    "author": "Charlotte Brontë",
+    "total_chapters": 2,
+    "chapters": [
+      "I",
+      "II"
+    ]
+  },
+  {
+    "slug": "meditations",
+    "title": "Meditations",
+    "author": "Marcus Aurelius",
+    "total_chapters": 2,
+    "chapters": [
+      "Book I",
+      "Book II"
+    ]
+  },
+  {
+    "slug": "war_of_the_worlds",
+    "title": "The War of the Worlds",
+    "author": "H. G. Wells",
+    "total_chapters": 2,
+    "chapters": [
+      "I",
+      "II"
+    ]
+  }
+]

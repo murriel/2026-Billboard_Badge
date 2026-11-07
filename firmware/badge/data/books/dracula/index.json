@@ -1,0 +1,21 @@
+{
+  "title": "Dracula",
+  "author": "Bram Stoker",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "I",
+      "file": "ch01.json",
+      "total_pages": 31,
+      "total_words": 5690
+    },
+    {
+      "id": 2,
+      "title": "II",
+      "file": "ch02.json",
+      "total_pages": 29,
+      "total_words": 5475
+    }
+  ]
+}

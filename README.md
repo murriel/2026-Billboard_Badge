@@ -1,5 +1,10 @@
 ![Billboard_Badge](assets/frame_graphic_demo.png "2026 Hackaday Supercon Billboard Badge")
 
+# Documentation & Manuals
+
+* 📖 **[User Manual](documentation/USER_MANUAL.md)**: Badge operation, power/battery, button navigation, LED menu indicators, e-paper display refresh characteristics, and nametag setup.
+* 🛠️ **[Developer Manual](documentation/DEVELOPER_MANUAL.md)**: Development setup, connecting via USB-C & MicroPython REPL, writing user applications, LED & LVGL APIs, 3-color graphic dithering, and core firmware flashing & building.
+
 # Badge Hardware
 The badge uses a 9.7 inch Pervasive Displays E2969JS0B1 electronic paper panel that was recycled from price tags which were destined for a now bankrupt German department store chain, coupled with an ESP32-S3 microcontroller.
 
