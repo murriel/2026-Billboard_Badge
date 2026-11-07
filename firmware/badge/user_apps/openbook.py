@@ -9,6 +9,7 @@ import gc
 import json
 import lvgl
 import os
+import time
 
 from apps.base_app import BaseApp
 from lib.button import MenuMinus, MenuPlus, UserA, UserB, Boot
@@ -20,9 +21,10 @@ _BLACK = lvgl.color_hex(0x000000)
 _RED   = lvgl.color_hex(0xFF0000)
 
 _FONTS = [
-    (lvgl.font_montserrat_16, "Small"),
-    (lvgl.font_montserrat_24, "Medium"),
-    (lvgl.font_montserrat_28, "Large"),
+    (lvgl.font_montserrat_16, "16pt"),
+    (lvgl.font_montserrat_24, "24pt"),
+    (lvgl.font_montserrat_28, "28pt"),
+    (lvgl.font_montserrat_32, "32pt"),
 ]
 
 
@@ -181,7 +183,7 @@ class OpenBookApp(BaseApp):
         author_str = f" — {author_name}" if author_name else ""
         title_lbl.set_text(f"{book_title}{author_str}")
         title_lbl.set_style_text_color(_BLACK, 0)
-        title_lbl.set_style_text_font(lvgl.font_montserrat_16, 0)
+        title_lbl.set_style_text_font(lvgl.font_montserrat_24, 0)
         title_lbl.align(lvgl.ALIGN.LEFT_MID, 0, 0)
 
         chap_lbl = lvgl.label(header)
@@ -223,7 +225,7 @@ class OpenBookApp(BaseApp):
 
         # Controls hint on the left in small 14pt font
         controls_lbl = lvgl.label(footer)
-        controls_lbl.set_text("[User A] Next  [User B] Prev  [Boot] Book  [Menu +/-] Switch App")
+        controls_lbl.set_text("[User A] Next  [User B] Prev  [Boot] Font (Hold: Book)  [Menu] Switch App")
         controls_lbl.set_style_text_color(_BLACK, 0)
         controls_lbl.set_style_text_font(lvgl.font_montserrat_14, 0)
         controls_lbl.align(lvgl.ALIGN.LEFT_MID, 0, 0)
@@ -298,6 +300,20 @@ class OpenBookApp(BaseApp):
                 self.current_page = max(0, len(prev_ch.get("pages", [])) - 1)
                 self.draw_current_page()
 
-        # Boot Button: Next Book in Library
+        # Boot Button: Tap = Cycle Font Size, Hold (> 600ms) = Next Book in Library
         elif Boot.pressed():
-            self.switch_book(+1)
+            start_ms = time.ticks_ms()
+            is_hold = False
+            while Boot.value:
+                if time.ticks_diff(time.ticks_ms(), start_ms) > 600:
+                    is_hold = True
+                    break
+                time.sleep_ms(20)
+            if is_hold:
+                print("Boot held: switching to next book")
+                self.switch_book(+1)
+            else:
+                self.font_idx = (self.font_idx + 1) % len(_FONTS)
+                font_name = _FONTS[self.font_idx][1]
+                print(f"Boot tapped: cycled font to {font_name}")
+                self.draw_current_page()

@@ -76,9 +76,11 @@ When cycling through the menu, the active item is highlighted by a bright white 
 When inside the OpenBook app, a compact control footer is displayed at the bottom of the screen:
 * **User A (`SW4`)**: Turn forward to the next page (automatically advances to the next chapter at the end of a chapter).
 * **User B (`SW7`)**: Turn back to the previous page (automatically goes to the previous chapter at the start of a chapter).
-* **BOOT (`SW2`/`SW3`)**: Cycle to the next book in your library (*Jane Eyre*, *Dracula*, *Dorian Gray*, *War of the Worlds*, etc.).
+* **BOOT (`SW2`/`SW3`)**: 
+  * **Short Tap**: Cycle font size (*16pt Small* $\rightarrow$ *24pt Medium* $\rightarrow$ *28pt Large* $\rightarrow$ *32pt Extra Large*).
+  * **Hold (> 600ms)**: Cycle to the next book in your library (*Jane Eyre*, *Dracula*, *Dorian Gray*, *War of the Worlds*, etc.).
 * **Menu + (`SW6`) / Menu - (`SW5`)**: Open the Badge App Switcher menu at any time to switch back to Nametag, Schedule, or Gallery.
-* Reading bookmarks and current page positions are saved automatically per book.
+* Reading bookmarks, current page positions, and font size preferences are saved automatically to flash.
 
 ### Status Colors During Refresh
 * **Cyan (`(0, 1, 1)`)**: The badge is currently reading flash and rendering layout data into the internal framebuffer.
