@@ -1,0 +1,21 @@
+{
+  "title": "Meditations",
+  "author": "Marcus Aurelius",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Book I",
+      "file": "ch01.json",
+      "total_pages": 16,
+      "total_words": 2814
+    },
+    {
+      "id": 2,
+      "title": "Book II",
+      "file": "ch02.json",
+      "total_pages": 15,
+      "total_words": 2332
+    }
+  ]
+}

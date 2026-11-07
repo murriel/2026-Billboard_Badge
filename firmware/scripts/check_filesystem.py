@@ -8,6 +8,8 @@ def check_dir(path: str) -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     for file_info in os.ilistdir(path):
         filename, filetype, _, size = file_info
+        if filename in (".DS_Store", "Thumbs.db") or filename.startswith("._"):
+            continue
         full_path = path + filename
         if filetype == 0x4000:  # directory
             files.update(check_dir(full_path + "/"))

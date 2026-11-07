@@ -20,9 +20,9 @@ _BLACK = lvgl.color_hex(0x000000)
 _RED   = lvgl.color_hex(0xFF0000)
 
 _FONTS = [
-    (lvgl.font_montserrat_18, "Small"),
-    (lvgl.font_montserrat_22, "Medium"),
-    (lvgl.font_montserrat_26, "Large"),
+    (lvgl.font_montserrat_16, "Small"),
+    (lvgl.font_montserrat_24, "Medium"),
+    (lvgl.font_montserrat_28, "Large"),
 ]
 
 
@@ -221,11 +221,11 @@ class OpenBookApp(BaseApp):
         footer.set_pos(40, display_height - 20)
         footer.set_size(display_width - 80, 16)
 
-        # Controls hint on the left in small 12pt font
+        # Controls hint on the left in small 14pt font
         controls_lbl = lvgl.label(footer)
-        controls_lbl.set_text("[Menu +/-] Turn Page   [User A] Next Chap   [User B] Next Book   [Boot] Font")
+        controls_lbl.set_text("[User A] Next  [User B] Prev  [Boot] Book  [Menu +/-] Switch App")
         controls_lbl.set_style_text_color(_BLACK, 0)
-        controls_lbl.set_style_text_font(lvgl.font_montserrat_12, 0)
+        controls_lbl.set_style_text_font(lvgl.font_montserrat_14, 0)
         controls_lbl.align(lvgl.ALIGN.LEFT_MID, 0, 0)
 
         # Page and Library progress on the right in red accent
@@ -234,7 +234,7 @@ class OpenBookApp(BaseApp):
         page_info = f"Pg {self.current_page + 1}/{total_pages}"
         status_lbl.set_text(f"{page_info}  •  {book_info}  [{font_label}]")
         status_lbl.set_style_text_color(_RED, 0)
-        status_lbl.set_style_text_font(lvgl.font_montserrat_12, 0)
+        status_lbl.set_style_text_font(lvgl.font_montserrat_14, 0)
         status_lbl.align(lvgl.ALIGN.RIGHT_MID, 0, 0)
 
         # Clear and flush display
@@ -275,8 +275,8 @@ class OpenBookApp(BaseApp):
             self.draw_current_page()
             return
 
-        # Next Page
-        if MenuPlus.pressed():
+        # User A: Next Page (advances chapter when reaching end of chapter)
+        if UserA.pressed() or MenuPlus.pressed():
             ch_info = self._load_chapter(self.current_chapter)
             total_pages = len(ch_info.get("pages", []))
             if self.current_page < total_pages - 1:
@@ -287,8 +287,8 @@ class OpenBookApp(BaseApp):
                 self.current_page = 0
                 self.draw_current_page()
 
-        # Previous Page
-        elif MenuMinus.pressed():
+        # User B: Previous Page (goes to previous chapter when reaching start)
+        elif UserB.pressed() or MenuMinus.pressed():
             if self.current_page > 0:
                 self.current_page -= 1
                 self.draw_current_page()
@@ -298,18 +298,6 @@ class OpenBookApp(BaseApp):
                 self.current_page = max(0, len(prev_ch.get("pages", [])) - 1)
                 self.draw_current_page()
 
-        # User A: Skip to Next Chapter
-        elif UserA.pressed():
-            total_ch = self.index.get("total_chapters", 1)
-            self.current_chapter = (self.current_chapter % total_ch) + 1
-            self.current_page = 0
-            self.draw_current_page()
-
-        # User B: Cycle to Next Book in Library
-        elif UserB.pressed():
-            self.switch_book(+1)
-
-        # Boot Button: Cycle Font Size
+        # Boot Button: Next Book in Library
         elif Boot.pressed():
-            self.font_idx = (self.font_idx + 1) % len(_FONTS)
-            self.draw_current_page()
+            self.switch_book(+1)

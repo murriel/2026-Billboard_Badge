@@ -1,0 +1,21 @@
+{
+  "title": "Jane Eyre",
+  "author": "Charlotte Brontë",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "I",
+      "file": "ch01.json",
+      "total_pages": 11,
+      "total_words": 1928
+    },
+    {
+      "id": 2,
+      "title": "II",
+      "file": "ch02.json",
+      "total_pages": 15,
+      "total_words": 2730
+    }
+  ]
+}

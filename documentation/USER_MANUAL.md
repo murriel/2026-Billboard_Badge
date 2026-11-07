@@ -74,12 +74,11 @@ When cycling through the menu, the active item is highlighted by a bright white 
 
 ### OpenBook E-Reader Controls
 When inside the OpenBook app, a compact control footer is displayed at the bottom of the screen:
-* **Menu + (`SW6`)**: Turn to the next page.
-* **Menu - (`SW5`)**: Turn to the previous page.
-* **User A (`SW4`)**: Jump to the next chapter.
-* **User B (`SW7`)**: Switch to the next book in your library (Jane Eyre, Dracula, Dorian Gray, etc.).
-* **BOOT (`SW2`/`SW3`)**: Cycle font size (*Small* → *Medium* → *Large*).
-* Reading bookmarks are saved automatically per book.
+* **User A (`SW4`)**: Turn forward to the next page (automatically advances to the next chapter at the end of a chapter).
+* **User B (`SW7`)**: Turn back to the previous page (automatically goes to the previous chapter at the start of a chapter).
+* **BOOT (`SW2`/`SW3`)**: Cycle to the next book in your library (*Jane Eyre*, *Dracula*, *Dorian Gray*, *War of the Worlds*, etc.).
+* **Menu + (`SW6`) / Menu - (`SW5`)**: Open the Badge App Switcher menu at any time to switch back to Nametag, Schedule, or Gallery.
+* Reading bookmarks and current page positions are saved automatically per book.
 
 ### Status Colors During Refresh
 * **Cyan (`(0, 1, 1)`)**: The badge is currently reading flash and rendering layout data into the internal framebuffer.

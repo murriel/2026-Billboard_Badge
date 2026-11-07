@@ -1,0 +1,21 @@
+{
+  "title": "The Picture of Dorian Gray",
+  "author": "Oscar Wilde",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "I",
+      "file": "ch01.json",
+      "total_pages": 27,
+      "total_words": 4912
+    },
+    {
+      "id": 2,
+      "title": "II",
+      "file": "ch02.json",
+      "total_pages": 29,
+      "total_words": 5601
+    }
+  ]
+}

@@ -177,11 +177,13 @@ class MyDemoApp(BaseApp):
                 leds.fill((0, 0, 2)) # Blue blink
 ```
 
-### Wiring Up User Program A & B Shortcuts
-To make your app directly accessible via the **User A** or **User B** hardware buttons:
-1. Create `firmware/badge/apps/user_app_a.py` and/or `firmware/badge/apps/user_app_b.py`.
-2. Implement your app logic subclassing `BaseApp`.
-3. In `lib/app_switcher.py`, the switcher provides direct access to these programs: pressing `User A` or `User B` launches the corresponding user slot program.
+### Registering Custom Apps (`/user_apps`)
+To add custom apps cleanly without modifying core system files:
+1. Place your app script inside `firmware/badge/user_apps/<your_app>.py` (for example, `firmware/badge/user_apps/openbook.py`).
+2. Subclass `BaseApp` and define a unique `name` attribute in `__init__`.
+3. The App Switcher automatically searches both `/apps` (built-in system apps) and `/user_apps` (user apps).
+4. Each app is loaded in an isolated `try...except` block: if a user app encounters an import error or bug, it logs the exception and gracefully skips that app, guaranteeing `main.py`, the LED menu, and other apps boot safely.
+5. In the LED App Switcher, use `Menu +` / `Menu -` to cycle slots, and press `User A` or `User B` to launch. At any time inside an app, press `Menu +` or `Menu -` to return to the App Switcher.
 
 ---
 

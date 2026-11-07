@@ -1,0 +1,21 @@
+{
+  "title": "The Mysterious Affair at Styles",
+  "author": "Agatha Christie",
+  "total_chapters": 2,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "I",
+      "file": "ch01.json",
+      "total_pages": 21,
+      "total_words": 4008
+    },
+    {
+      "id": 2,
+      "title": "II",
+      "file": "ch02.json",
+      "total_pages": 13,
+      "total_words": 2619
+    }
+  ]
+}

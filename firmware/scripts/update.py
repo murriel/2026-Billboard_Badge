@@ -9,17 +9,20 @@ import subprocess
 from typing import Iterable
 
 
+IGNORE_FILES = {".DS_Store", "Thumbs.db", ".git", "__pycache__"}
+
+
 def check_path(path: str, ) -> dict[str, bytes]:
     files: dict[str, bytes] = {}
     top_path = pathlib.Path(path)
     for file_path in top_path.iterdir():
+        if file_path.name in IGNORE_FILES or file_path.name.startswith("._"):
+            continue
         if file_path.is_file():
             with open(file_path, "rb") as file:
                 hasher = hashlib.sha256(file.read())
                 files[file_path.as_posix()] = hasher.digest()
         else:
-            if file_path.name in ["__pycache__", ".git"]:
-                continue
             files.update(check_path(str(file_path)))
             files[file_path.as_posix()] = b""
     return files
@@ -83,6 +86,10 @@ if __name__ == "__main__":
                     print(f"{name} is up to date.")
         files_to_delete = set(badge_files.keys()) - set(local_files.keys())
         for name in sorted(files_to_delete, reverse=True):
+            if name.endswith(".DS_Store") or name.endswith("Thumbs.db") or "/._" in name:
+                print(f"Removing junk file {name} from badge...")
+                subprocess.run(["mpremote", "rm", name], check=False)
+                continue
             if name.startswith("/data"):  # Don't delete the data/ directory.
                 continue
             if "__pycache__" in name:  # Don't delete cache files

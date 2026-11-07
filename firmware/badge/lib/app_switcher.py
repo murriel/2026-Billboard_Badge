@@ -26,51 +26,53 @@ class AppSwitcher:
         self.selecting_mode = True
         self.selection_idx = initial_idx
 
-        # Discover and load apps
-        app_mods = []
-        for filename, _, _, _ in os.ilistdir("/apps"):  # pyright: ignore[reportAssignmentType]
-            if not filename.endswith(".py") or filename.startswith("_"):
-                continue
-            app_modname = filename.split(".")[0]
-            app_mods.append(app_modname)
-        if app_mods:
-            print(f"Found app mods: {app_mods}")
-            with open("/data/user_apps.py", "w") as out:
-                out.write(f"from apps import {', '.join(app_mods)}\n")
-
-        import data.user_apps as apps  # pyright: ignore[reportMissingImports]
-        apps_list = [app for app in dir(apps) if "__" not in app]
-        print(f"App module list: {apps_list}")
-        for appmod_name in apps_list:
-            if appmod_name.startswith("_") or appmod_name in APPMOD_DENYLIST:
-                continue
-            appmod = getattr(apps, appmod_name)
+        # Discover and safely load apps from both /apps and /user_apps
+        search_paths = [("/apps", "apps"), ("/user_apps", "user_apps")]
+        for folder, pkg in search_paths:
             try:
-                for modattr in appmod.__dict__.values():
-                    # Subclasses of an app class count too. _abstract skips the
-                    # shared base so only the concrete apps are constructed.
-                    if not isinstance(modattr, type) or not issubclass(modattr, BaseApp):
+                for filename, _, _, _ in os.ilistdir(folder):
+                    if not filename.endswith(".py") or filename.startswith("_"):
                         continue
-                    if modattr is BaseApp or modattr.__dict__.get("_abstract"):
+                    app_modname = filename[:-3]
+                    if app_modname in APPMOD_DENYLIST:
                         continue
-                    app = modattr()
-                    self.apps.append(app)
-                    print(f"Added app: {app.name}")
-            except Exception as exc:
-                print(f"Failed to load app module: {appmod}")
-                sys.print_exception(exc)
+                    try:
+                        print(f"Loading {pkg}.{app_modname}...")
+                        mod = __import__(f"{pkg}.{app_modname}", None, None, [app_modname])
+                        for modattr in mod.__dict__.values():
+                            # Subclasses of an app class count too. _abstract skips the
+                            # shared base so only the concrete apps are constructed.
+                            if not isinstance(modattr, type) or not issubclass(modattr, BaseApp):
+                                continue
+                            if modattr is BaseApp or modattr.__dict__.get("_abstract"):
+                                continue
+                            app = modattr()
+                            self.apps.append(app)
+                            print(f"Added app: {app.name} (from {pkg})")
+                    except Exception as exc:
+                        print(f"Failed to load app '{app_modname}' from {pkg}:")
+                        sys.print_exception(exc)
+            except OSError:
+                pass
 
         try:
             apps_file = open("/data/app_list", "r+b")
         except OSError:
             apps_file = open("/data/app_list", "w+b")
-        # Now open a database itself
-        apps_db = btree.open(apps_file)
-        for idx, app in enumerate(self.apps):
-            apps_db[bytes([idx])] = bytes(app.name, "UTF-8")
-        apps_db.flush()
-        apps_db.close()
-        apps_file.close()
+        # Now open database itself
+        try:
+            apps_db = btree.open(apps_file)
+            for idx, app in enumerate(self.apps):
+                apps_db[bytes([idx])] = bytes(app.name, "UTF-8")
+            apps_db.flush()
+            apps_db.close()
+        except Exception as exc:
+            print(f"Failed updating app_list database: {exc}")
+        finally:
+            try:
+                apps_file.close()
+            except Exception:
+                pass
 
 
     async def arun(self):
