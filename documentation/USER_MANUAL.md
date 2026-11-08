@@ -73,14 +73,23 @@ When cycling through the menu, available apps are displayed in **dim light pink*
 | **LED 7 – 8** | *User Slots* | Reserved for your own custom apps and demos! |
 
 ### OpenBook E-Reader Controls
-When inside the OpenBook app, a compact control footer is displayed at the bottom of the screen:
-* **User A (`SW4`)**: Turn forward to the next page (automatically advances to the next chapter at the end of a chapter).
-* **User B (`SW7`)**: Turn back to the previous page (automatically goes to the previous chapter at the start of a chapter).
+
+#### 1. Bookshelf Landing Page (Directory)
+When you launch OpenBook, you land on the **Library & Bookshelf** directory:
+* **User A (`SW4`)**: Move cursor down to the next book in your library.
+* **User B (`SW7`)**: Move cursor up to the previous book in your library.
+* **BOOT (`SW2`/`SW3`)**: Open and read the highlighted book.
+* **Menu + (`SW6`) / Menu - (`SW5`)**: Return to the Badge App Switcher menu.
+
+#### 2. Reading View
+Once inside a book:
+* **User A (`SW4`)**: Turn forward to the next page (advances to the next chapter at the end of a chapter).
+* **User B (`SW7`)**: Turn back to the previous page (goes to the previous chapter at the start of a chapter).
 * **BOOT (`SW2`/`SW3`)**: 
   * **Short Tap**: Cycle font size (*16pt Small* $\rightarrow$ *24pt Medium* $\rightarrow$ *28pt Large* $\rightarrow$ *32pt Extra Large*).
-  * **Hold (> 600ms)**: Cycle to the next book in your library (*Jane Eyre*, *Dracula*, *Dorian Gray*, *War of the Worlds*, etc.).
-* **Menu + (`SW6`) / Menu - (`SW5`)**: Open the Badge App Switcher menu at any time to switch back to Nametag, Schedule, or Gallery.
-* Reading bookmarks, current page positions, and font size preferences are saved automatically to flash.
+  * **Hold (> 600ms)**: Return to the **Bookshelf** directory landing page.
+* **Menu + (`SW6`) / Menu - (`SW5`)**: Open the Badge App Switcher menu at any time.
+* Reading bookmarks, current page positions, and font size preferences are saved automatically to flash per book.
 
 ### Status Colors During Refresh
 * **Cyan (`(0, 1, 1)`)**: The badge is currently reading flash and rendering layout data into the internal framebuffer.
