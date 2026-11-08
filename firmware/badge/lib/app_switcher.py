@@ -55,6 +55,21 @@ class AppSwitcher:
             except OSError:
                 pass
 
+        PREFERRED_ORDER = [
+            "Gallery",
+            "Nametag",
+            "Workshops",
+            "Sat Talks",
+            "Sun Talks",
+            "OpenBook",
+            "Cat",
+        ]
+        self.apps.sort(
+            key=lambda a: PREFERRED_ORDER.index(a.name)
+            if a.name in PREFERRED_ORDER
+            else 99
+        )
+
         try:
             apps_file = open("/data/app_list", "r+b")
         except OSError:
@@ -64,6 +79,11 @@ class AppSwitcher:
             apps_db = btree.open(apps_file)
             for idx, app in enumerate(self.apps):
                 apps_db[bytes([idx])] = bytes(app.name, "UTF-8")
+            for extra_idx in range(len(self.apps), 16):
+                try:
+                    del apps_db[bytes([extra_idx])]
+                except KeyError:
+                    pass
             apps_db.flush()
             apps_db.close()
         except Exception as exc:

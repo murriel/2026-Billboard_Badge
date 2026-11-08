@@ -56,21 +56,22 @@ The primary control buttons are located on the **back** of the badge along the e
 The row of 8 addressable WS2812 RGB LEDs on the back of the board acts as your real-time status and menu selector:
 
 ```
-  (1)       (2)       (3)       (4)       (5)      (6)   (7)   (8)
- [Load]   [Sat Sched] [Sun Sched] [Art]  [Name]   [ --- Open Slots --- ]
+  (1)       (2)       (3)         (4)         (5)         (6)        (7)      (8)
+ [Art]    [Name]  [Workshops] [Sat Talks] [Sun Talks] [OpenBook]    [Cat]   [Open]
 ```
 
 When cycling through the menu, available apps are displayed in **dim light pink**, and the currently selected app is highlighted by a **bright purple** cursor:
 
 | Position | Screen / Application | Description |
 | :---: | :--- | :--- |
-| **LED 1** (Leftmost) | **Load Screen** | Supercon-X splash screen and startup logo. |
-| **LED 2** | **Saturday Agenda** | Talk schedule and stages for Saturday. |
-| **LED 3** | **Sunday Agenda** | Talk schedule and stages for Sunday. |
-| **LED 4** | **Art Gallery** | Cycles through artwork from Hackaday Art Director Joe Kim. |
-| **LED 5** | **Name Badge** | Full-screen digital name and handle badge. |
+| **LED 1** (Leftmost) | **Art Gallery** | Cycles through artwork from Hackaday Art Director Joe Kim. |
+| **LED 2** | **Name Badge** | Full-screen digital name and handle badge ("murriel"). |
+| **LED 3** | **Workshops** | Workshop schedule and logistics. |
+| **LED 4** | **Saturday Talks** | Talk schedule and stages for Saturday. |
+| **LED 5** | **Sunday Talks** | Talk schedule and stages for Sunday. |
 | **LED 6** | **OpenBook E-Reader** | Full-screen book reader with 7 built-in public domain classics. |
-| **LED 7 – 8** | *User Slots* | Reserved for your own custom apps and demos! |
+| **LED 7** | **Cat** | Murriel cat portrait with 24pt 7-segment digital name overlay. |
+| **LED 8** | *User Slot* | Reserved for custom apps and demos! |
 
 ### OpenBook E-Reader Controls
 
@@ -117,7 +118,7 @@ Unlike LCD, OLED, or smartphone screens that update 60 times a second, 3-color e
 
 ## 5. Customizing Your Digital Name Badge
 
-Out of the box, the badge includes a **Nametag** app (LED position 5). You can customize it with your own name, callsign, and pronouns!
+Out of the box, the badge includes a **Nametag** app (LED position 2). You can customize it with your own name, callsign, and pronouns!
 
 1. Connect the badge to your laptop with a USB-C data cable.
 2. Open `firmware/badge/apps/nametag.py` on your computer.
