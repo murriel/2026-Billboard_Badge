@@ -19,7 +19,7 @@ _NAME_DY = (_NAME_TOP + _NAME_BOTTOM) // 2 - display_height // 2
 
 
 class NametagApp(BaseApp):
-    def __init__(self, name: str | None = i88None) -> None:
+    def __init__(self, name: str | None = None) -> None:
         self.name = "Nametag"
         self.sleep_ms = 100
         self.launched = False
@@ -27,7 +27,7 @@ class NametagApp(BaseApp):
     def run(self):
         if self.launched:
             leds.fill((0,1,1))
-            display.draw_png("/data/graphics/hello_i_am_blank.png.png")
+            display.draw_png("/data/graphics/hello_i_am_blank.png")
 
             scr = lvgl.obj()
             scr.remove_style_all()
