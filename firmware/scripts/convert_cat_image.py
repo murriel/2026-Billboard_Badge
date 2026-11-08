@@ -2,7 +2,7 @@
 """
 Convert cat photo (IMG_7958.JPG) into an optimized 960x672 3-color e-paper graphic
 (White, Black, Red) for the Billboard Badge, with an authentic 24pt 7-segment display
-'murriel' overlay in the bottom-right corner.
+'MURRIEL' (all uppercase) overlay in the bottom-right corner.
 """
 
 import os
@@ -109,7 +109,7 @@ def dither_atkinson(canvas):
 
 def render_7segment_overlay(indices: bytearray, bottom_right_x=936, bottom_right_y=654):
     """
-    Renders 'murriel' in authentic 7-segment digital display styling (24pt)
+    Renders 'MURRIEL' (all uppercase) in authentic 24pt 7-segment digital display styling
     inside a sleek dark bezel box in the bottom right corner directly onto
     the output palette indices.
     """
@@ -119,10 +119,10 @@ def render_7segment_overlay(indices: bytearray, bottom_right_x=936, bottom_right
     mid = H // 2
     
     # Calculate exact character widths and total layout
-    # m: 19px, u: 10px, r: 8px, r: 8px, i: 6px, e: 10px, l: 9px
+    # M: 19px, U: 11px, R: 11px, R: 11px, I: 7px, E: 10px, L: 9px
     # spacing: 4px
-    # Total = 19 + 4 + 10 + 4 + 8 + 4 + 8 + 4 + 6 + 4 + 10 + 4 + 9 = 85 px
-    TEXT_WIDTH = 88
+    # Total text width = 19 + 4 + 11 + 4 + 11 + 4 + 11 + 4 + 7 + 4 + 10 + 4 + 9 = 98 px
+    TEXT_WIDTH = 98
     BOX_PAD_X = 8
     BOX_PAD_Y = 6
     box_w = TEXT_WIDTH + BOX_PAD_X * 2 + 6
@@ -160,59 +160,61 @@ def render_7segment_overlay(indices: bytearray, bottom_right_x=936, bottom_right
 
     cur_x = text_start_x
     
-    # 1. 'm' (two arches joined)
-    # Left vertical
-    fill_rect(cur_x, text_start_y + mid, cur_x + T, text_start_y + H)
-    # Top bar 1
-    fill_rect(cur_x + T, text_start_y + mid, cur_x + 9, text_start_y + mid + T)
-    # Center vertical
-    fill_rect(cur_x + 9, text_start_y + mid, cur_x + 9 + T, text_start_y + H)
-    # Top bar 2
-    fill_rect(cur_x + 9 + T, text_start_y + mid, cur_x + 18, text_start_y + mid + T)
-    # Right vertical
-    fill_rect(cur_x + 18, text_start_y + mid, cur_x + 18 + T, text_start_y + H)
-    cur_x += 18 + T + 4
+    # 1. 'M' (full height, 3 vertical bars with top connection)
+    m_w = 19
+    fill_rect(cur_x, text_start_y, cur_x + T, text_start_y + H)
+    fill_rect(cur_x + T, text_start_y, cur_x + 9, text_start_y + T)
+    fill_rect(cur_x + 8, text_start_y, cur_x + 8 + T, text_start_y + H)
+    fill_rect(cur_x + 8 + T, text_start_y, cur_x + 16, text_start_y + T)
+    fill_rect(cur_x + 16, text_start_y, cur_x + 16 + T, text_start_y + H)
+    cur_x += m_w + 4
     
-    # 2. 'u'
-    u_w = 10
-    fill_rect(cur_x, text_start_y + mid, cur_x + T, text_start_y + H)
+    # 2. 'U' (full height, left, bottom, right)
+    u_w = 11
+    fill_rect(cur_x, text_start_y, cur_x + T, text_start_y + H)
     fill_rect(cur_x + T, text_start_y + H - T, cur_x + u_w - T, text_start_y + H)
-    fill_rect(cur_x + u_w - T, text_start_y + mid, cur_x + u_w, text_start_y + H)
+    fill_rect(cur_x + u_w - T, text_start_y, cur_x + u_w, text_start_y + H)
     cur_x += u_w + 4
     
-    # 3. 'r'
-    r_w = 8
-    fill_rect(cur_x, text_start_y + mid, cur_x + T, text_start_y + H)
-    fill_rect(cur_x + T, text_start_y + mid, cur_x + r_w, text_start_y + mid + T)
+    # 3. 'R' (full height, left vertical, top bar, upper-right vertical, mid bar, diagonal leg)
+    r_w = 11
+    fill_rect(cur_x, text_start_y, cur_x + T, text_start_y + H)
+    fill_rect(cur_x + T, text_start_y, cur_x + r_w, text_start_y + T)
+    fill_rect(cur_x + r_w - T, text_start_y, cur_x + r_w, text_start_y + mid)
+    fill_rect(cur_x + T, text_start_y + mid - T // 2, cur_x + r_w, text_start_y + mid + T // 2 + 1)
+    for step in range(mid, H):
+        frac = (step - mid) / (H - mid)
+        dx = int(cur_x + 3 + frac * (r_w - 3 - T))
+        fill_rect(dx, text_start_y + step, dx + T, text_start_y + step + 1)
     cur_x += r_w + 4
     
-    # 4. 'r'
-    fill_rect(cur_x, text_start_y + mid, cur_x + T, text_start_y + H)
-    fill_rect(cur_x + T, text_start_y + mid, cur_x + r_w, text_start_y + mid + T)
+    # 4. 'R' (second R)
+    fill_rect(cur_x, text_start_y, cur_x + T, text_start_y + H)
+    fill_rect(cur_x + T, text_start_y, cur_x + r_w, text_start_y + T)
+    fill_rect(cur_x + r_w - T, text_start_y, cur_x + r_w, text_start_y + mid)
+    fill_rect(cur_x + T, text_start_y + mid - T // 2, cur_x + r_w, text_start_y + mid + T // 2 + 1)
+    for step in range(mid, H):
+        frac = (step - mid) / (H - mid)
+        dx = int(cur_x + 3 + frac * (r_w - 3 - T))
+        fill_rect(dx, text_start_y + step, dx + T, text_start_y + step + 1)
     cur_x += r_w + 4
     
-    # 5. 'i'
-    # dot
-    fill_rect(cur_x + 1, text_start_y + mid - 6, cur_x + 1 + T, text_start_y + mid - 3)
-    # vertical
-    fill_rect(cur_x + 1, text_start_y + mid, cur_x + 1 + T, text_start_y + H)
-    cur_x += 6 + 4
+    # 5. 'I' (full height, centered vertical with top/bottom horizontal serifs)
+    i_w = 7
+    fill_rect(cur_x, text_start_y, cur_x + i_w, text_start_y + T)
+    fill_rect(cur_x + (i_w - T) // 2, text_start_y + T, cur_x + (i_w - T) // 2 + T, text_start_y + H - T)
+    fill_rect(cur_x, text_start_y + H - T, cur_x + i_w, text_start_y + H)
+    cur_x += i_w + 4
     
-    # 6. 'e' (classic 7-seg lowercase e: a, b, g, e, d)
+    # 6. 'E' (full height classic 7-seg E: a, d, e, f, g)
     e_w = 10
-    # a (top)
-    fill_rect(cur_x, text_start_y, cur_x + e_w, text_start_y + T)
-    # b (upper-right)
-    fill_rect(cur_x + e_w - T, text_start_y, cur_x + e_w, text_start_y + mid)
-    # g (middle)
-    fill_rect(cur_x, text_start_y + mid - T // 2, cur_x + e_w, text_start_y + mid + T // 2 + 1)
-    # e (lower-left)
-    fill_rect(cur_x, text_start_y + mid, cur_x + T, text_start_y + H)
-    # d (bottom)
-    fill_rect(cur_x, text_start_y + H - T, cur_x + e_w, text_start_y + H)
+    fill_rect(cur_x, text_start_y, cur_x + T, text_start_y + H)
+    fill_rect(cur_x + T, text_start_y, cur_x + e_w, text_start_y + T)
+    fill_rect(cur_x + T, text_start_y + mid - T // 2, cur_x + e_w - 1, text_start_y + mid + T // 2 + 1)
+    fill_rect(cur_x + T, text_start_y + H - T, cur_x + e_w, text_start_y + H)
     cur_x += e_w + 4
     
-    # 7. 'l' (uppercase L: f, e, d)
+    # 7. 'L' (full height classic 7-seg L: d, e, f)
     l_w = 9
     fill_rect(cur_x, text_start_y, cur_x + T, text_start_y + H)
     fill_rect(cur_x + T, text_start_y + H - T, cur_x + l_w, text_start_y + H)
@@ -275,7 +277,7 @@ def main():
     print("Applying Atkinson dithering to photo...")
     indices = dither_atkinson(canvas)
     
-    print("Overlaying 7-segment 'murriel' in bottom-right...")
+    print("Overlaying 7-segment uppercase 'MURRIEL' in bottom-right...")
     render_7segment_overlay(indices, bottom_right_x=936, bottom_right_y=654)
     
     print(f"Writing palette PNG to {output_png}...")
