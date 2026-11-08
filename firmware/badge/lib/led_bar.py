@@ -14,9 +14,9 @@ else:
 NUM_LEDS   = 8
 WS2812_PIN = 38
 
-## Menu colors: dim light pink for available apps, bright purple for selected app
+## Menu colors: dim light pink for available apps, softened purple for selected app
 DIM_LIGHT_PINK = (4, 1, 2)
-BRIGHT_PURPLE  = (25, 1, 40)
+BRIGHT_PURPLE  = (16, 0, 26)
 
 MENU_BACKGROUND_COLORS  = [DIM_LIGHT_PINK] * 6
 MENU_SELECTED_COLORS    = [BRIGHT_PURPLE] * 6
