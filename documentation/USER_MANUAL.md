@@ -60,7 +60,7 @@ The row of 8 addressable WS2812 RGB LEDs on the back of the board acts as your r
  [Load]   [Sat Sched] [Sun Sched] [Art]  [Name]   [ --- Open Slots --- ]
 ```
 
-When cycling through the menu, the active item is highlighted by a bright white cursor over the page's color group:
+When cycling through the menu, available apps are displayed in **dim light pink**, and the currently selected app is highlighted by a **bright purple** cursor:
 
 | Position | Screen / Application | Description |
 | :---: | :--- | :--- |

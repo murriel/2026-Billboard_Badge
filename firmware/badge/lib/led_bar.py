@@ -14,10 +14,13 @@ else:
 NUM_LEDS   = 8
 WS2812_PIN = 38
 
-## 64 Apps should be enough for anyone (TM)
-MENU_BACKGROUND_COLORS  = [(2,1,0), (0,1,1), (2,0,1), (3,0,0), (0,2,0), (0,0,1)]
-MENU_SELECTED_COLORS    = [(3,2,1), (3,2,1), (3,2,1), (3,2,1), (3,2,1), (3,2,1)]  ## white looks good
-SUBMENU_SELECTED_COLORS = MENU_BACKGROUND_COLORS   ## same for consistency?
+## Menu colors: dim light pink for available apps, bright purple for selected app
+DIM_LIGHT_PINK = (4, 1, 2)
+BRIGHT_PURPLE  = (25, 1, 40)
+
+MENU_BACKGROUND_COLORS  = [DIM_LIGHT_PINK] * 6
+MENU_SELECTED_COLORS    = [BRIGHT_PURPLE] * 6
+SUBMENU_SELECTED_COLORS = MENU_SELECTED_COLORS
 
 
 class LedBar:
